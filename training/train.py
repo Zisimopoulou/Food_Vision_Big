@@ -6,8 +6,8 @@ from utils.helper_functions import create_tensorboard_callback, plot_loss_curves
 from models.model_definition import create_model
 
 def train_model(model, train_data, test_data, class_names):
-    for layer in loaded_gs_model.layers:
-    layer.trainable = True
+    for layer in model.layers:
+        layer.trainable = True
 
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor="val_loss",
                                                   patience=3)
@@ -27,11 +27,11 @@ def train_model(model, train_data, test_data, class_names):
 
     tf.get_logger().setLevel('ERROR')
 
-    loaded_gs_model.compile(loss="sparse_categorical_crossentropy",
+    model.compile(loss="sparse_categorical_crossentropy",
                             optimizer=tf.keras.optimizers.Adam(0.0001),
                             metrics=["accuracy"])
 
-    history_101_food_classes_all_data_fine_tune = loaded_gs_model.fit(train_data,
+    history_101_food_classes_all_data_fine_tune = model.fit(train_data,
                                                         epochs=100,
                                                         steps_per_epoch=len(train_data),
                                                         validation_data=test_data,
