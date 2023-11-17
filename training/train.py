@@ -4,22 +4,26 @@ from tensorflow.keras import mixed_precision
 import requests
 from utils.helper_functions import create_tensorboard_callback, plot_loss_curves, compare_historys
 from models.model_definition import create_model
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 def train_model(model, train_data, test_data, class_names):
-    for layer in model.layers:
+    
+    for layer in model.layers[-20:]:
         layer.trainable = True
-
-    early_stopping = tf.keras.callbacks.EarlyStopping(monitor="val_loss",
-                                                  patience=3)
+    
+    early_stopping = tf.keras.callbacks.EarlyStopping(monitor="val_accuracy",
+                                                  restore_best_weights=True, 
+                                                  patience=3, 
+                                                  verbose=1)
 
     checkpoint_path = "fine_tune_checkpoints/"
     model_checkpoint = tf.keras.callbacks.ModelCheckpoint(checkpoint_path,
                                                       save_best_only=True,
                                                       monitor="val_loss")
 
-    reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor="val_loss",
-                                                 factor=0.2,
-                                                 patience=2,
+    reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor="val_accuracy",
+                                                 factor=0.5,
+                                                 patience=0,
                                                  verbose=1,
                                                  min_lr=1e-7)
 
@@ -36,12 +40,15 @@ def train_model(model, train_data, test_data, class_names):
                                                         steps_per_epoch=len(train_data),
                                                         validation_data=test_data,
                                                         validation_steps=int(0.15 * len(test_data)),
-                                                        callbacks=[create_tensorboard_callback("training_logs", "efficientb0_101_classes_all_data_fine_tuning"),
+                                                        callbacks=[create_tensorboard_callback("training_logs", "efficientb1_101_classes_all_data_fine_tuning"),
                                                                    model_checkpoint,
                                                                    early_stopping,
                                                                    reduce_lr])
     results_created_model = model.evaluate(test_data)
+    
+    plot_loss_curves(history)
 
-    save_dir = "07_efficientnetb0_feature_extract_model_mixed_precision_fine_tuning"
+    save_dir = "/content/drive/MyDrive/Projects/food_vision/training/07_efficientnetb1_feature_extract_model_mixed_precision_fine_tuning"
     model.save(save_dir)
+    print("Save Directory:", save_dir)
 

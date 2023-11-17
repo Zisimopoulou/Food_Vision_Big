@@ -1,5 +1,6 @@
 import tensorflow as tf
 import tensorflow_datasets as tfds
+import numpy as np
 
 def load_and_preprocess_data():
     datasets_list = tfds.list_builders()
@@ -7,7 +8,7 @@ def load_and_preprocess_data():
 
     (train_data, test_data), ds_info = tfds.load(name=target_dataset,
                                                  split=["train", "validation"],
-                                                 shuffle_files=True,
+                                                 shuffle_files=False,
                                                  as_supervised=True,
                                                  with_info=True)
 
