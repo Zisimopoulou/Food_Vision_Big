@@ -48,7 +48,7 @@ def train_model(model, train_data, test_data, class_names):
     
     plot_loss_curves(history)
 
-    save_dir = "/content/drive/MyDrive/Projects/food_vision/training/07_efficientnetb1_feature_extract_model_mixed_precision_fine_tuning"
+    save_dir = "/kaggle/working/Food_Vision_Big/models/07_efficientnetb1_feature_extract_model_mixed_precision_fine_tuning"
     model.save(save_dir)
     print("Save Directory:", save_dir)
 
