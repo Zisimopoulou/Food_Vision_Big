@@ -51,7 +51,7 @@ def create_confusion_matrix(true_labels, predictions, classes=None, figsize=(20,
               size=text_size)
 
   if savefig:
-    fig.savefig("/content/drive/MyDrive/Projects/food_vision/images/confusion_matrix.png")
+    fig.savefig("/kaggle/working/Food_Vision_Big/images/confusion_matrix.png")
     
 def calculate_metrics(model, test_data):
     predictions = model.predict(test_data, verbose=1)
