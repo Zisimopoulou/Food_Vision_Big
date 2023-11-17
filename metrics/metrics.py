@@ -81,7 +81,7 @@ def find_most_wrong_predictions(true_labels, predictions):
         print(f"Index: {idx}, True Label: {true_label}, Predicted Label: {predicted_label}")
 
 
-def plot_f1_scores(true_labels, predicted_labels, class_names, sklearn_acc, figure_size=(15,25)):
+def plot_f1_scores(true_labels, predicted_labels, class_names, sklearn_acc, figure_size=(15,25), savefig=False):
     class_f1_scores = {}
     for k, v in classification_report_dict.items():
         if k == "accuracy": 
@@ -97,8 +97,11 @@ def plot_f1_scores(true_labels, predicted_labels, class_names, sklearn_acc, figu
     ax.set_title("F1-Scores")
     ax.invert_yaxis();  
     plt.axvline(x=sklearn_acc, linestyle='--', color='r')
-
     autolabel(scores)
+
+    if savefig:
+      fig.savefig("/content/drive/MyDrive/Projects/food_vision/images/f1_scores.png")
+
 
 def autolabel(rects): 
     for rect in rects:
