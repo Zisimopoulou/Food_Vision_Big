@@ -46,7 +46,7 @@ def train_model(model, train_data, test_data, class_names):
                                                                    reduce_lr])
     results_created_model = model.evaluate(test_data)
     
-    plot_loss_curves(history)
+    plot_loss_curves(history_101_food_classes_all_data_fine_tune)
 
     save_dir = "/kaggle/working/Food_Vision_Big/models/07_efficientnetb1_feature_extract_model_mixed_precision_fine_tuning"
     model.save(save_dir)
