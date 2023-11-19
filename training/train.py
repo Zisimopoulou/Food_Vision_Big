@@ -11,7 +11,7 @@ def train_model(model, train_data, test_data, class_names):
     for layer in model.layers[-20:]:
         layer.trainable = True
     
-    early_stopping = tf.keras.callbacks.EarlyStopping(monitor="val_accuracy",
+    early_stopping = tf.keras.callbacks.EarlyStopping(monitor="val_loss",
                                                   restore_best_weights=True, 
                                                   patience=3, 
                                                   verbose=1)
@@ -21,7 +21,7 @@ def train_model(model, train_data, test_data, class_names):
                                                       save_best_only=True,
                                                       monitor="val_loss")
 
-    reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor="val_accuracy",
+    reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor="val_loss",
                                                  factor=0.5,
                                                  patience=0,
                                                  verbose=1,
