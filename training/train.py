@@ -22,7 +22,7 @@ def train_model(model, train_data, test_data, class_names):
                                                       monitor="val_loss")
 
     reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor="val_loss",
-                                                 factor=0.5,
+                                                 factor=0.2,
                                                  patience=0,
                                                  verbose=1,
                                                  min_lr=1e-7)
