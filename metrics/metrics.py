@@ -86,7 +86,9 @@ def plot_f1_scores(true_labels, predicted_labels, class_names, sklearn_acc, figu
             break
     else:
         class_f1_scores[class_names[int(k)]] = v["f1-score"]
-        
+
+    f1_scores = pd.DataFrame(class_f1_scores, index = ['f1-scores']).T
+    f1_scores = f1_scores.sort_values("f1-scores", ascending=True)
     fig, ax = plt.subplots(figsize=figure_size)
     scores = ax.barh(range(len(f1_scores)), f1_scores["f1-score"].values)
     ax.set_yticks(range(len(f1_scores)))
