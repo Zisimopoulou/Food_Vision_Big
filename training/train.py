@@ -40,7 +40,7 @@ def train_model(model, train_data, test_data, class_names):
                                                         steps_per_epoch=len(train_data),
                                                         validation_data=test_data,
                                                         validation_steps=int(0.15 * len(test_data)),
-                                                        callbacks=[create_tensorboard_callback("training_logs", "efficientb1_101_classes_all_data_fine_tuning"),
+                                                        callbacks=[create_tensorboard_callback("training_logs", "efficientb0_101_classes_all_data_fine_tuning"),
                                                                    model_checkpoint,
                                                                    early_stopping,
                                                                    reduce_lr])
@@ -48,7 +48,7 @@ def train_model(model, train_data, test_data, class_names):
     
     plot_loss_curves(history_101_food_classes_all_data_fine_tune)
 
-    save_dir = "/kaggle/working/Food_Vision_Big/models/07_efficientnetb1_feature_extract_model_mixed_precision_fine_tuning"
+    save_dir = "/kaggle/working/Food_Vision_Big/models/07_efficientnetb0_feature_extract_model_mixed_precision_fine_tuning"
     model.save(save_dir)
     print("Save Directory:", save_dir)
 
