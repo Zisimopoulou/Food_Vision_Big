@@ -5,6 +5,9 @@ import requests
 from utils.helper_functions import create_tensorboard_callback, plot_loss_curves, compare_historys
 from models.model_definition import create_model
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import os
+import subprocess
+from IPython.display import FileLink, display
 
 def train_model(model, train_data, test_data, class_names):
     
@@ -48,7 +51,21 @@ def train_model(model, train_data, test_data, class_names):
     
     plot_loss_curves(history_101_food_classes_all_data_fine_tune)
 
-    save_dir = "/kaggle/working/Food_Vision_Big/models/07_efficientnetb0_feature_extract_model_mixed_precision_fine_tuning"
+    save_dir = "/kaggle/working/07_efficientnetb0_feature_extract_model_mixed_precision_fine_tuning"
     model.save(save_dir)
+    download_file(save_dir, 'out')
     print("Save Directory:", save_dir)
+
+def download_file(path, download_file_name):
+    os.chdir('/kaggle/working/')
+    zip_name = f"/kaggle/working/{download_file_name}.zip"
+    command = f"zip {zip_name} {path} -r"
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    if result.returncode != 0:
+        print("Unable to run zip command!")
+        print(result.stderr)
+        return
+    display(FileLink(f'{download_file_name}.zip'))
+    
+
 
