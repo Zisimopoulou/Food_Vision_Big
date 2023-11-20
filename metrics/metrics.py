@@ -6,6 +6,7 @@ from sklearn.metrics import confusion_matrix, f1_score
 import tensorflow_datasets as tfds
 from sklearn.preprocessing import LabelEncoder
 import itertools
+from sklearn.metrics import classification_report
 
 def create_confusion_matrix(true_labels, predictions, classes=None, figsize=(30,30), text_size=15, norm=False, savefig=False): 
 
@@ -82,6 +83,8 @@ def find_most_wrong_predictions(true_labels, predictions):
 
 
 def plot_f1_scores(true_labels, predicted_labels, class_names, sklearn_acc, figure_size=(15,25), savefig=False):
+    classification_report_dict = classification_report(y_labels, pred_classes, output_dict=True)
+
     class_f1_scores = {}
     for k, v in classification_report_dict.items():
         if k == "accuracy": 
