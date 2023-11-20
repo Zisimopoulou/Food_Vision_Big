@@ -80,10 +80,8 @@ def find_most_wrong_predictions(true_labels, predictions):
 
 
 def plot_f1_scores(true_labels, predicted_labels, class_names, sklearn_acc, figure_size=(15,25)):
-    classification_report_dict = classification_report(y_labels, pred_classes, output_dict=True)
-
     class_f1_scores = {}
-    for k, v in classification_report_dict.items():
+    for k, v in classification_report(y_labels, pred_classes, output_dict=True).items():
         if k == "accuracy": 
             break
     else:
