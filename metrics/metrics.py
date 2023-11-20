@@ -7,7 +7,7 @@ import tensorflow_datasets as tfds
 from sklearn.preprocessing import LabelEncoder
 import itertools
 
-def create_confusion_matrix(true_labels, predictions, classes=None, figsize=(20,20), text_size=10, norm=False, savefig=False): 
+def create_confusion_matrix(true_labels, predictions, classes=None, figsize=(30,30), text_size=10, norm=False, savefig=False): 
 
   cm = confusion_matrix(true_labels, predictions)
   cm_norm = cm.astype("float") / cm.sum(axis=1)[:, np.newaxis] 
