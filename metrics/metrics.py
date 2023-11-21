@@ -80,23 +80,22 @@ def find_most_wrong_predictions(true_labels, predictions):
         print(f"Index: {idx}, True Label: {true_label}, Predicted Label: {predicted_label}")
 
 
-def plot_f1_scores(true_labels, predicted_labels, class_names, sklearn_acc, figure_size=(15,25)):
+def plot_f1_scores(true_labels, predicted_labels, class_names, sklearn_acc, figure_size=(15, 25)):
     class_f1_scores = {}
     for k, v in classification_report(true_labels, predicted_labels, output_dict=True).items():
         if k == "accuracy": 
             break
-    else:
         class_f1_scores[class_names[int(k)]] = v["f1-score"]
 
-    f1_scores = pd.DataFrame(class_f1_scores, index = ['f1-scores']).T
+    f1_scores = pd.DataFrame(class_f1_scores, index=['f1-scores']).T
     f1_scores = f1_scores.sort_values("f1-scores", ascending=True)
     fig, ax = plt.subplots(figsize=figure_size)
-    scores = ax.barh(range(len(f1_scores)), f1_scores["f1-score"].values)
+    scores = ax.barh(range(len(f1_scores)), f1_scores["f1-scores"].values)   
     ax.set_yticks(range(len(f1_scores)))
-    ax.set_yticklabels(list(f1_scores["class_name"]))
+    ax.set_yticklabels(list(f1_scores.index))  
     ax.set_xlabel("f1-score")
     ax.set_title("F1-Scores")
-    ax.invert_yaxis();  
+    ax.invert_yaxis()
     plt.axvline(x=sklearn_acc, linestyle='--', color='r')
     autolabel(scores)
 
