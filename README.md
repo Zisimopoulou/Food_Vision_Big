@@ -7,3 +7,5 @@ Our journey includes data handling, efficient training, model building, fine-tun
 Let's explore the world of "Food Vision Big™". 
 
 Enjoy the ride! 🍔👁
+
+Project was implemented using kaggle.
