@@ -97,9 +97,9 @@ def plot_f1_scores(true_labels, predicted_labels, class_names, sklearn_acc, figu
     ax.set_title("F1-Scores")
     ax.invert_yaxis()
     plt.axvline(x=sklearn_acc, linestyle='--', color='r')
-    autolabel(scores)
+    autolabel(scores, ax)
 
-def autolabel(rects): 
+def autolabel(rects, ax): 
     for rect in rects:
         width = rect.get_width()
         ax.text(1.03*width, rect.get_y() + rect.get_height()/1.5,
